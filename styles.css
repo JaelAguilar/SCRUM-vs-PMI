@@ -1,0 +1,11 @@
+#video-container{
+    background-color: red;
+    margin: 8% 4%;
+    align-items: center;
+}
+.answers{
+    margin:10px auto;
+}
+.preguntas{
+    margin:5%;
+}
