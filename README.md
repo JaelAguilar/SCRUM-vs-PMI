@@ -1,7 +1,7 @@
 # PMI vs SCRUM
 Este es un proyecto para la materia de Administración de Proyectos de Software de FIME UANL.
 
-Avance actual: [SCRUM vs PMI](https://jaelaguilar.github.io/SCRUM-vs-PMI/)
+Avance actual: <a href="https://jaelaguilar.github.io/SCRUM-vs-PMI/" target="_blank">SCRUM vs PMI</a>
 
 ## Diseño actual
 ![Layout](./media/Layout_Idea.gif)
