@@ -1,11 +1,23 @@
 #video-container{
-    background-color: red;
-    margin: 8% 4%;
+
+    margin: 6% 20%;
     align-items: center;
+}
+
+video{
+    background-color: black;
+    height: auto;
+    width:100%;
 }
 .answers{
     margin:20px auto;
 }
 .preguntas{
     margin:10%;
+}
+
+.button-questions-container{
+    display:flex;
+    align-items: center;
+    justify-content:center;
 }
