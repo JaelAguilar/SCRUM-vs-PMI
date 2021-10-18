@@ -28,29 +28,28 @@
         </button>
     </div>
      <!-- Modal donde aparecen las preguntas -->
-    <div class="modal fade" id="questionsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="questionsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content text-center">
 
             
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Pregunta 1 de 1</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <h1>Pregunta</h1>
                     <div class="answers">
                         <div class="d-grid gap-2 d-md-block">
-                            <button class="btn btn-outline-primary" type="button">Respuesta 1</button>  
-                            <button class="btn btn-outline-primary" type="button">Respuesta 2</button>  
-                            <button class="btn btn-outline-primary" type="button">Respuesta 3</button>  
-                            <button class="btn btn-outline-primary" type="button">Respuesta 4</button> 
+                            <button class="btn btn-outline-primary respuesta" type="button" id="respuesta1">Respuesta 1</button>  
+                            <button class="btn btn-outline-primary respuesta" type="button" id="respuesta2">Respuesta 2</button>  
+                            <button class="btn btn-outline-primary respuesta" type="button" id="respuesta3">Respuesta 3</button>  
+                            <button class="btn btn-outline-primary respuesta" type="button" id="respuesta4">Respuesta 4</button> 
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ver video de nuevo</button>
-                    <button type="button" class="btn btn-primary">Continuar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="popover" title="xd" data-bs-content="Sólo podrás ver el video una vez más, ¿estás seguro?">Ver video de nuevo</button>
+                    <button type="submit" class="btn btn-primary" id="Continue-Question">Continuar</button>
                 </div>
             </div>
         </div>
@@ -100,8 +99,9 @@
         </div>
         
     </div>-->
-    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    
     <script src="scripts.js"></script>
 
 
