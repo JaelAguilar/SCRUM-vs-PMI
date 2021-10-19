@@ -43,22 +43,40 @@ function closeQuestionModal() {
     closeModal(questionsModal);
 }
 
+/**
+ * Abre específicamente el modal de preguntas
+ */
+function loadQuestionModal() {
+    loadModal(questionsModal);
+}
+
 // Este código es para asegurarse que el modal se quede abierto aunque se recargue la página
 let reload = sessionStorage.getItem('pageReloaded');
 if (reload) {
     if (localStorage.getItem('isModalOpen')==='true') {
-        loadModal(questionModal);
+        loadModal(questionsModal);
     }
 }
 sessionStorage.setItem('pageReloaded', 'true');
 
 
+/**
+ *Agrega una clase llamada 'choosed' a la respuesta elegida, y se asegura que ninguna otra la tenga.
+ *No sé si haya una mejor solución, estoy abierto a ideas
+ * @param {string} number
+ */
+function answerChoosed(number) {
+    console.log(number)
+    answers.forEach(option => {
+        option.id === 'respuesta' + number ? option.classList.add('choosed') : option.classList.remove('choosed')
+    })
+}
 
 
 //The pseudoclass when an element is choosed is :focus
 //Esto no funciona, aún
-continueButton.addEventListener("click", () => {
+/*continueButton.addEventListener("click", () => {
     answers.forEach(option => {
         option.matches(':focus') ? console.log(option.id) : console.log('incorrect');
     });
-})
+})*/
