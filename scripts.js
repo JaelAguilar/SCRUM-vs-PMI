@@ -7,13 +7,20 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 })
 //Fin de Javascript para popover
 
-//Definición de los elementos
+//Definición de los elementos de HTML y bootstrap
 //Botón de continuar
 var continueButton = document.getElementById("Continue-Question")
 //Los botones de respuestas
 var answers = [...document.getElementsByClassName("respuesta")]
 //Modal de preguntas
-var questionsModal = new bootstrap.Modal(document.getElementById("questionsModal"))
+var questionsModal = new bootstrap.Modal(
+    document.getElementById("questionsModal"), {
+        backdrop: 'static',
+        keyboard: false,
+        focus: true,
+  }
+
+)
 
 
 /**
@@ -73,10 +80,10 @@ function answerChoosed(number) {
 }
 
 
-//The pseudoclass when an element is choosed is :focus
-//Esto no funciona, aún
-/*continueButton.addEventListener("click", () => {
-    answers.forEach(option => {
-        option.matches(':focus') ? console.log(option.id) : console.log('incorrect');
-    });
-})*/
+var verVideoClick = 0;
+function verVideo() {
+    verVideoClick++;
+    if (verVideoClick % 2 === 0) {
+        closeModal(questionsModal)
+    }
+}
