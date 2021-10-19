@@ -22,6 +22,11 @@ var questionsModal = new bootstrap.Modal(
 
 )
 
+//Obtener las preguntas del documento JSON
+$.getJSON("questions.json", function (questionsJSON) {
+  console.log(questionsJSON.questions[0]) //json output
+})
+
 
 /**
  *Abre el Modal y especifica que el modal está abierto
