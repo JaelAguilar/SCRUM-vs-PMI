@@ -4,13 +4,13 @@
       "id": 1,
       "question": "¿Qué es SCRUM?",
       "answers": ["R1 Correcta", "R2", "R3", "R4"],
-      "correctAnswer": 0
+      "correctAnswer": 1
     },
     {
       "id": 2,
       "question": "¿Qué es PMI?",
       "answers": ["R1", "R2", "R3 Correcta", "R4"],
-      "correctAnswer": 2
+      "correctAnswer": 3
     }
   ]
 }
