@@ -11,7 +11,7 @@ let popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 //Botón de continuar
 let continueButton = document.getElementById("Continue-Question")
 //Los botones de respuestas
-let answers = [...document.getElementsByClassName("respuesta")]
+let answerButtons = [...document.getElementsByClassName("respuesta")]
 //Modal de preguntas
 let questionsModal = new bootstrap.Modal(
     document.getElementById("questionsModal"), {
@@ -91,7 +91,7 @@ sessionStorage.setItem('pageReloaded', 'true');
  */
 function answerChoosed(number) {
     console.log(number)
-    answers.forEach(option => {
+    answerButtons.forEach(option => {
         if (option.id === 'respuesta' + number) {
             localStorage.setItem('choosed', option.id)
         }
@@ -123,7 +123,11 @@ function renderizeQuestion() {
     questions=JSON.parse(localStorage.getItem('questions'))
     questionBlock.textContent = questions[counter].question
     console.log("pregunta=",questions[counter].question)
-    console.log("HTML pregunta=",questionBlock)
+    console.log("HTML pregunta=", questionBlock)
+    answerButtons.forEach(button => {
+        console.log(button.id, button.id[-1])
+        button.textContent = questions[counter].answers[button.id.slice(-1)-1]
+    });
 }
 
 
