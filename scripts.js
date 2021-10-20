@@ -1,29 +1,44 @@
 //Activar los popovers, es algo de Bootstrap, es mejor no hacerle mucho caso
-var popoverTriggerList = [].slice.call(
+let popoverTriggerList = [].slice.call(
   document.querySelectorAll('[data-bs-toggle="popover"]')
 )
-var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+let popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
   return new bootstrap.Popover(popoverTriggerEl)
 })
 //Fin de Javascript para popover
 
 //Definición de los elementos de HTML y bootstrap
 //Botón de continuar
-var continueButton = document.getElementById("Continue-Question")
+let continueButton = document.getElementById("Continue-Question")
 //Los botones de respuestas
-var answers = [...document.getElementsByClassName("respuesta")]
+let answers = [...document.getElementsByClassName("respuesta")]
 //Modal de preguntas
-var questionsModal = new bootstrap.Modal(
+let questionsModal = new bootstrap.Modal(
     document.getElementById("questionsModal"), {
         backdrop: 'static',
         keyboard: false,
         focus: true,
   }
-
 )
+
+//El contador de preguntas que dice "Pregunta x de X"
+let questionsCounter = document.getElementsByClassName("questionsCounter");
+
+//El bloque donde va a aparecer la pregunta
+let questionBlock = document.getElementById("Title-Question");
+
+//Definir las variables que se van a estar usando
+let questions
+let counter
+let verVideoClick = 0;
+let answer
+
 
 //Obtener las preguntas del documento JSON
 $.getJSON("questions.json", function (questionsJSON) {
+    event.preventDefault()
+    localStorage.setItem('questions', JSON.stringify(questionsJSON.questions))
+    questions = questionsJSON.questions;
   console.log(questionsJSON.questions[0]) //json output
 })
 
@@ -48,25 +63,22 @@ function closeModal(modal) {
     console.log("Modal Closed")
 }
 
-/**
- * Cierra específicamente el modal de preguntas
- */
-function closeQuestionModal() {
-    closeModal(questionsModal);
-}
+
 
 /**
  * Abre específicamente el modal de preguntas
  */
 function loadQuestionModal() {
     loadModal(questionsModal);
+    renderizeQuestion();
+
 }
 
 // Este código es para asegurarse que el modal se quede abierto aunque se recargue la página
 let reload = sessionStorage.getItem('pageReloaded');
 if (reload) {
     if (localStorage.getItem('isModalOpen')==='true') {
-        loadModal(questionsModal);
+        loadQuestionModal();
     }
 }
 sessionStorage.setItem('pageReloaded', 'true');
@@ -80,12 +92,42 @@ sessionStorage.setItem('pageReloaded', 'true');
 function answerChoosed(number) {
     console.log(number)
     answers.forEach(option => {
-        option.id === 'respuesta' + number ? option.classList.add('choosed') : option.classList.remove('choosed')
+        if (option.id === 'respuesta' + number) {
+            localStorage.setItem('choosed', option.id)
+        }
     })
 }
 
+localStorage.setItem('score', 0);
 
-var verVideoClick = 0;
+function answerQuestion() {
+    score = localStorage.getItem('score');
+    answer = localStorage.getItem('choosed');
+    localStorage.setItem(
+      "questionCounter",
+      parseInt(localStorage.getItem("questionCounter")) + 1
+    )
+    if (answer=='Correct Answer') {
+        score++;
+    }
+    
+    localStorage.setItem('score', score);
+    renderizeQuestion();
+}
+
+localStorage.setItem('questionCounter', 0);
+
+function renderizeQuestion() {
+    counter = localStorage.getItem('questionCounter')
+    console.log("counter=", counter)
+    questions=JSON.parse(localStorage.getItem('questions'))
+    questionBlock.textContent = questions[counter].question
+    console.log("pregunta=",questions[counter].question)
+    console.log("HTML pregunta=",questionBlock)
+}
+
+
+
 function verVideo() {
     verVideoClick++;
     if (verVideoClick % 2 === 0) {
