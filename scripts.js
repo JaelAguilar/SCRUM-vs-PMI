@@ -8,11 +8,18 @@ let popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 //Fin de Javascript para popover
 
 //Definición de los elementos de HTML y bootstrap
-//Botón de continuar
+
+/**
+ * Botón de continuar
+ */
 let continueButton = document.getElementById("Continue-Question")
-//Los botones de respuestas
+/**
+ * Los botones de respuestas
+ */
 let answerButtons = [...document.getElementsByClassName("respuesta")]
-//Modal de preguntas
+/**
+ * Modal de preguntas
+ */
 let questionsModal = new bootstrap.Modal(
     document.getElementById("questionsModal"), {
         backdrop: 'static',
@@ -20,8 +27,19 @@ let questionsModal = new bootstrap.Modal(
         focus: true,
   }
 )
+/**
+ * Modal de resultados
+ */
+let resultsModal = new bootstrap.Modal(document.getElementById("resultsModal"), {
+    backdrop:'static',
+    keyboard: false,
+    focus:true,
+})
 
-//El contador de preguntas que dice "Pregunta x de X"
+
+/**
+ * El contador de preguntas que dice "Pregunta x de X"
+ */
 let questionsCounterHTML = document.getElementsByClassName("questionsCounter");
 
 //El bloque donde va a aparecer la pregunta
@@ -224,6 +242,8 @@ function renderizeQuestion() {
     console.log("blockcounter=", blockCounter)
     console.log(block[blockCounter].questions[counter])
     questionBlock.textContent = block[blockCounter].questions[counter].question
+    questionsCounterHTML
+    console.log("pregunta ", counter + 1, " de ", totalQuestions)
     
 
     console.log(
