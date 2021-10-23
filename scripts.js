@@ -68,6 +68,14 @@ let totalAnswers
  * Dummy variable to renderize answers
  */
 let isCorrectRenderized = false;
+/**
+ * Cantidad de preguntas de un bloque específico
+ */
+let totalQuestions
+/**
+ * Cantidad de bloques totales
+ */
+let totalBlocks
 
 function rememberVariables() {
     block = JSON.parse(localStorage.getItem('blocks'));
@@ -81,9 +89,12 @@ function rememberVariables() {
     totalQuestions = Object.keys(
         block[blockCounter].questions
     ).length;
-
+        console.debug(
+          "TOTAL ANSWERS DEBUG:",
+          block[blockCounter].questions[counter]
+        )
     totalAnswers = Object.keys(block[blockCounter].questions[counter].incorrectAnswers).length + 1;
-    
+    console.debug(block)
     totalBlocks = Object.keys(block).length;
 }
 
@@ -156,11 +167,7 @@ function answerChoosed(number) {
 localStorage.setItem('score', 0);
 
 function continueButtonClicked() {
-    
-    
-    
-    
-    
+    rememberVariables();
     console.log(score);
     console.log(counter);
     console.log(totalQuestions);
@@ -169,27 +176,40 @@ function continueButtonClicked() {
       "questionCounter",
       parseInt(counter) + 1
     )
-    if (buttonChoosed=='Correct Answer') {
-        score++;
+    console.log("botón escogido= ",buttonChoosed)
+    if (
+      buttonChoosed === block[blockCounter].questions[counter].correctAnswer
+    ) {
+        score++
+        console.debug("Se escogió la correcta, calificación:", score);
     }
-    
-    if (counter >= totalQuestions) {
-        if (blockCounter >= totalBlocks) {
+    console.log("bloque ", blockCounter)
+    console.log("pregunta ",counter+1," de ",totalQuestions)
+    if (counter >= totalQuestions - 1) {
+        console.log("counter is bigger than totalQuestions")
+        if (blockCounter >= totalBlocks-1) {
             renderizeResults()
+
         }
         else {
             closeModal(questionsModal);
-            localStorage.setItem("blockCounter", blockCounter++);
+            blockCounter++
+            counter=0
         }
         
         //TODO: #2 Make function to renderize results
     }
+    else {
+        counter++
+        renderizeQuestion()
+    }
+    
      
     
-    
+    localStorage.setItem("questionCounter",counter)
     localStorage.setItem('score', score);
-    localStorage.setItem("questionCounter", blockCounter++);
-    renderizeQuestion();
+    localStorage.setItem("blockCounter", blockCounter);
+    
 }
 
 localStorage.setItem('questionCounter', 0);
@@ -225,23 +245,23 @@ function renderizeAnswers() {
           isCorrectRenderized = true
         }
         else {
-            console.log(
+           /* console.log(
           "Answer Comparison: ",
           button.id.slice(-1),
           correctAnswerIndex
-        )
+        )*/
         button.textContent =
           block[blockCounter].questions[counter].incorrectAnswers[
             parseInt(button.id.slice(-1)) - 1 + (isCorrectRenderized ? (-1)  : 0)
           ]
 
-        console.debug(
+        /*console.debug(
           "Incorrect Answers Debug:",
           isCorrectRenderized ? 1 : 0,
           parseInt(button.id.slice(-1))
         )
 
-        console.debug(
+        //console.debug(
           "Incorrect Answer index: ",
           parseInt(button.id.slice(-1)) + (isCorrectRenderized ? (-1) : 0) - 1
         )
@@ -249,7 +269,7 @@ function renderizeAnswers() {
           block[blockCounter].questions[counter].incorrectAnswers[
             parseInt(button.id.slice(-1)) + (isCorrectRenderized ? (-1) : 0) - 1
           ]
-        )}
+        )*/}
         
         
         

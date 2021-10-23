@@ -24,7 +24,7 @@
           "id":"P3",
           "question": "Pregunta 3?",
           "correctAnswer":"Correcta",
-          "incorrectAnswers":["R2","R3","R4","R5"]
+          "incorrectAnswers":["R2","R3","R4"]
         }
       ]
     }
