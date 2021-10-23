@@ -1,16 +1,32 @@
 {
-  "questions": [
+  "blocks": [
     {
-      "id": 1,
-      "question": "¿Qué es SCRUM?",
-      "answers": ["R1 Correcta", "R2", "R3", "R4"],
-      "correctAnswer": 1
+      "id":"block1",
+      "questions":[
+          {
+            "id": "P1",
+            "question": "¿Qué es SCRUM?",
+            "correctAnswer": "Correcta",
+            "incorrectAnswers": ["R2", "R3", "R4"]
+          },
+          {
+            "id": "P2",
+            "question": "¿Qué es PMI?",
+            "answers": ["R1", "R2", "R4"],
+            "correctAnswer": "Correcta"
+          }
+        ]
     },
     {
-      "id": 2,
-      "question": "¿Qué es PMI?",
-      "answers": ["R1", "R2", "R3 Correcta", "R4"],
-      "correctAnswer": 3
+      "id":"block2",
+      "questions":[
+        {
+          "id":"P3",
+          "question": "Pregunta 3?",
+          "correctAnswer":"Correcta",
+          "incorrectAnswers":["R2","R3","R4","R5"]
+        }
+      ]
     }
   ]
 }
