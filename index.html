@@ -30,13 +30,13 @@
     </div>
     
      <!-- Modal donde aparecen las preguntas -->
-    <div class="modal fade" id="questionsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+    <div class="modal fade" id="questionsModal" tabindex="-1" aria-labelledby="questionsModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content text-center">
 
             
                 <div class="modal-header">
-                    <h5 class="modal-title questionsCounter" id="exampleModalLabel" >Pregunta 1 de 1</h5>
+                    <h5 class="modal-title questionsCounter" id="questionsModalLabel" >Pregunta 1 de 1</h5>
                 </div>
                 <div class="modal-body">
                     <h1 id="Title-Question">Pregunta</h1>
@@ -52,6 +52,28 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-toggle="popover" data-bs-trigger="focus"  data-bs-content="Sólo podrás ver el video una vez más, ¿estás seguro?" onclick="verVideo()">Ver video de nuevo</button>
                     <button class="btn btn-primary" id="Continue-Question" onclick="continueButtonClicked()">Continuar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="resultsModal" tabindex="-1" aria-labelledby="resultsModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content text-center">
+
+            
+                <div class="modal-header">
+                    <h5 class="modal-title questionsCounter" id="resultsModalLabel" >Resultados</h5>
+                </div>
+                <div class="modal-body">
+                    <h1 id="Title-Results">Respuestas Correctas</h1>
+                    <p>¡Felicidades!</p>
+                    
+                </div>
+                <div class="modal-footer">
+                    
+                    <button class="btn btn-primary" id="Finish-Question" onclick="FinishButtonClicked()">Terminar</button>
                 </div>
             </div>
         </div>
