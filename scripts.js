@@ -219,16 +219,46 @@ function renderizeAnswers() {
     correctAnswerIndex = parseInt(Math.ceil(Math.random()*totalAnswers));
     isCorrectRenderized = false;
     answerButtons.forEach((button) => {
-        console.log("Answer Comparison: ",button.id.slice(-1),correctAnswerIndex)
         if (parseInt(button.id.slice(-1)) === correctAnswerIndex) {
-            console.log("Comparison Working")
-            button.textContent=block[blockCounter].questions[counter].correctAnswer
+          button.textContent =
+            block[blockCounter].questions[counter].correctAnswer
+          isCorrectRenderized = true
         }
+        else {
+            console.log(
+          "Answer Comparison: ",
+          button.id.slice(-1),
+          correctAnswerIndex
+        )
+        button.textContent =
+          block[blockCounter].questions[counter].incorrectAnswers[
+            parseInt(button.id.slice(-1)) - 1 + (isCorrectRenderized ? (-1)  : 0)
+          ]
+
+        console.debug(
+          "Incorrect Answers Debug:",
+          isCorrectRenderized ? 1 : 0,
+          parseInt(button.id.slice(-1))
+        )
+
+        console.debug(
+          "Incorrect Answer index: ",
+          parseInt(button.id.slice(-1)) + (isCorrectRenderized ? (-1) : 0) - 1
+        )
+        console.debug(
+          block[blockCounter].questions[counter].incorrectAnswers[
+            parseInt(button.id.slice(-1)) + (isCorrectRenderized ? (-1) : 0) - 1
+          ]
+        )}
+        
+        
+        
 
       /*console.log(button.id, button.id[-1])
       button.textContent = questions[counter].answers[button.id.slice(-1) - 1]*/
       //TODO: #3 Change the question appearing by blocks
     })
+    isCorrectRenderized = false
 }
 
 function verVideo() {
