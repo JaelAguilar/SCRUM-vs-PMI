@@ -12,7 +12,7 @@
           {
             "id": "P2",
             "question": "¿Qué es PMI?",
-            "answers": ["R1", "R2", "R4"],
+            "incorrectAnswers": ["R1", "R2", "R4"],
             "correctAnswer": "Correcta"
           }
         ]
