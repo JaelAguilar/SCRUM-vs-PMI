@@ -40,7 +40,7 @@ let resultsModal = new bootstrap.Modal(document.getElementById("resultsModal"), 
 /**
  * El contador de preguntas que dice "Pregunta x de X"
  */
-let questionsCounterHTML = document.getElementsByClassName("questionsCounter");
+let questionsCounterHTML = document.getElementById("questionsCounter");
 
 //El bloque donde va a aparecer la pregunta
 let questionBlock = document.getElementById("Title-Question");
@@ -242,7 +242,8 @@ function renderizeQuestion() {
     console.log("blockcounter=", blockCounter)
     console.log(block[blockCounter].questions[counter])
     questionBlock.textContent = block[blockCounter].questions[counter].question
-    questionsCounterHTML
+    console.log(questionsCounterHTML)
+    questionsCounterHTML.textContent="".concat("Pregunta ",counter+1," de ",totalQuestions)
     console.log("pregunta ", counter + 1, " de ", totalQuestions)
     
 
@@ -309,5 +310,7 @@ function verVideo() {
 }
 
 function renderizeResults() {
+    closeModal(questionsModal)
+    loadModal(resultsModal)
 
 }
