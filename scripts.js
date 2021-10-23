@@ -22,24 +22,77 @@ let questionsModal = new bootstrap.Modal(
 )
 
 //El contador de preguntas que dice "Pregunta x de X"
-let questionsCounter = document.getElementsByClassName("questionsCounter");
+let questionsCounterHTML = document.getElementsByClassName("questionsCounter");
 
 //El bloque donde va a aparecer la pregunta
 let questionBlock = document.getElementById("Title-Question");
 
 //Definir las variables que se van a estar usando
+/**
+ * Preguntas en JSON
+ */
 let questions
+/**
+ * Contador de preguntas contestadas dentro del bloque
+ */
 let counter
+/**
+ * Veces que se ha picado al botó "ver video"
+ */
 let verVideoClick = 0;
-let answer
+/**
+ * Contador de bloques contestados
+ */
+let blockCounter;
+/**
+ * Bloques de preguntas en formato JSON
+ */
+let block
+/**
+ * Botón escogido en la pregunta
+ */
+let buttonChoosed
+/**
+ * Puntaje actual
+ */
+let score = 0;
+/**
+ * Índice de la respuesta correcta
+ */
+let correctAnswerIndex
+/**
+ * Respuestas de la pregunta específica
+ */
+let totalAnswers
+/**
+ * Dummy variable to renderize answers
+ */
+let isCorrectRenderized = false;
+
+function rememberVariables() {
+    block = JSON.parse(localStorage.getItem('blocks'));
+    buttonChoosed = localStorage.getItem("choosed");
+    score = localStorage.getItem("score");
+
+    counter = parseInt(localStorage.getItem("questionCounter"));
+
+    blockCounter = parseInt(localStorage.getItem("blockCounter"));
+
+    totalQuestions = Object.keys(
+        block[blockCounter].questions
+    ).length;
+
+    totalAnswers = Object.keys(block[blockCounter].questions[counter].incorrectAnswers).length + 1;
+    
+    totalBlocks = Object.keys(block).length;
+}
 
 
 //Obtener las preguntas del documento JSON
 $.getJSON("questions.json", function (questionsJSON) {
-    event.preventDefault()
-    localStorage.setItem('questions', JSON.stringify(questionsJSON.questions))
-    questions = questionsJSON.questions;
-  console.log(questionsJSON.questions[0]) //json output
+    localStorage.setItem('blocks', JSON.stringify(questionsJSON.blocks))
+    block = questionsJSON.blocks;
+  console.log(questionsJSON.blocks[0]) //json output
 })
 
 
@@ -79,62 +132,112 @@ let reload = sessionStorage.getItem('pageReloaded');
 if (reload) {
     if (localStorage.getItem('isModalOpen')==='true') {
         loadQuestionModal();
+        rememberVariables();
     }
 }
 sessionStorage.setItem('pageReloaded', 'true');
 
 
 /**
- *Agrega una clase llamada 'choosed' a la respuesta elegida, y se asegura que ninguna otra la tenga.
- *No sé si haya una mejor solución, estoy abierto a ideas
+ *Guarda la respuesta escogida en la variable buttonChoosed
  * @param {string} number
  */
 function answerChoosed(number) {
+
     console.log(number)
-    answerButtons.forEach(option => {
-        if (option.id === 'respuesta' + number) {
-            localStorage.setItem('choosed', option.id)
-        }
+    answerButtons.forEach(button => {
+        if ("respuesta" + number === button.id) {
+            console.log(button.id)
+            localStorage.setItem("choosed", button.textContent)
+        }   
     })
 }
 
 localStorage.setItem('score', 0);
 
-function answerQuestion() {
-    score = localStorage.getItem('score');
-    answer = localStorage.getItem('choosed');
+function continueButtonClicked() {
+    
+    
+    
+    
+    
+    console.log(score);
+    console.log(counter);
+    console.log(totalQuestions);
+
     localStorage.setItem(
       "questionCounter",
-      parseInt(localStorage.getItem("questionCounter")) + 1
+      parseInt(counter) + 1
     )
-    if (answer=='Correct Answer') {
+    if (buttonChoosed=='Correct Answer') {
         score++;
     }
     
+    if (counter >= totalQuestions) {
+        if (blockCounter >= totalBlocks) {
+            renderizeResults()
+        }
+        else {
+            closeModal(questionsModal);
+            localStorage.setItem("blockCounter", blockCounter++);
+        }
+        
+        //TODO: #2 Make function to renderize results
+    }
+     
+    
+    
     localStorage.setItem('score', score);
+    localStorage.setItem("questionCounter", blockCounter++);
     renderizeQuestion();
 }
 
 localStorage.setItem('questionCounter', 0);
+localStorage.setItem('blockCounter', 0);
 
 function renderizeQuestion() {
-    counter = localStorage.getItem('questionCounter')
+    rememberVariables();
+    
     console.log("counter=", counter)
-    questions=JSON.parse(localStorage.getItem('questions'))
-    questionBlock.textContent = questions[counter].question
-    console.log("pregunta=",questions[counter].question)
+
+    
+    console.log("blockcounter=", blockCounter)
+    console.log(block[blockCounter].questions[counter])
+    questionBlock.textContent = block[blockCounter].questions[counter].question
+    
+
+    console.log(
+      "pregunta=",
+      block[blockCounter].questions[counter].question
+    )
     console.log("HTML pregunta=", questionBlock)
-    answerButtons.forEach(button => {
-        console.log(button.id, button.id[-1])
-        button.textContent = questions[counter].answers[button.id.slice(-1)-1]
-    });
+    renderizeAnswers();
 }
 
+function renderizeAnswers() {
+    /*totalAnswers = block[blockCounter].questions[counter]*/
+    correctAnswerIndex = parseInt(Math.ceil(Math.random()*totalAnswers));
+    isCorrectRenderized = false;
+    answerButtons.forEach((button) => {
+        console.log("Answer Comparison: ",button.id.slice(-1),correctAnswerIndex)
+        if (parseInt(button.id.slice(-1)) === correctAnswerIndex) {
+            console.log("Comparison Working")
+            button.textContent=block[blockCounter].questions[counter].correctAnswer
+        }
 
+      /*console.log(button.id, button.id[-1])
+      button.textContent = questions[counter].answers[button.id.slice(-1) - 1]*/
+      //TODO: #3 Change the question appearing by blocks
+    })
+}
 
 function verVideo() {
     verVideoClick++;
     if (verVideoClick % 2 === 0) {
         closeModal(questionsModal)
     }
+}
+
+function renderizeResults() {
+
 }
