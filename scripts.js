@@ -73,7 +73,7 @@ let buttonChoosed
 /**
  * Puntaje actual
  */
-let score = 0;
+let score;
 /**
  * Índice de la respuesta correcta
  */
@@ -94,7 +94,15 @@ let totalQuestions
  * Cantidad de bloques totales
  */
 let totalBlocks
+/**
+ * Dummy variable para checar si es la primera vez que se ha picado a continuar
+ */
+let firstContinueClicked
 
+
+/**
+ * Recuerda las variables guardadas en localStorage, es conveniente poner esta función dentro de la mayoría de las funciones, si no es que todas para evitar problemas de actualización de valores
+ */
 function rememberVariables() {
     block = JSON.parse(localStorage.getItem('blocks'));
     buttonChoosed = localStorage.getItem("choosed");
@@ -180,12 +188,22 @@ function answerChoosed(number) {
             localStorage.setItem("choosed", button.textContent)
         }   
     })
+    continueButton.disabled = false
 }
 
-localStorage.setItem('score', 0);
-
+/**
+ * Función que se activa cuando se presiona el botón de continuar.
+ * 
+ * Si es la primera vez, primero inicializa las variables
+ */
 function continueButtonClicked() {
+    //Esto es para ver si es la primera vez que se ha picado al botón de continuar, y si es así, se inicializan las variables
+    if (localStorage.getItem("firstContinueClicked") == null) {
+        initializeVariables();
+        localStorage.setItem("firstContinueClicked",true)
+    }
     rememberVariables();
+    continueButton.disabled = true
     console.log(score);
     console.log(counter);
     console.log(totalQuestions);
@@ -199,6 +217,7 @@ function continueButtonClicked() {
       buttonChoosed === block[blockCounter].questions[counter].correctAnswer
     ) {
         score++
+        localStorage.setItem("score", score)
         console.debug("Se escogió la correcta, calificación:", score);
     }
     console.log("bloque ", blockCounter)
@@ -225,14 +244,15 @@ function continueButtonClicked() {
      
     
     localStorage.setItem("questionCounter",counter)
-    localStorage.setItem('score', score);
+    
     localStorage.setItem("blockCounter", blockCounter);
     
 }
 
-localStorage.setItem('questionCounter', 0);
-localStorage.setItem('blockCounter', 0);
 
+/**
+ * Muestra la pregunta y las respuestas
+ */
 function renderizeQuestion() {
     rememberVariables();
     
@@ -255,6 +275,9 @@ function renderizeQuestion() {
     renderizeAnswers();
 }
 
+/**
+ * Pone el texto de las respuestas en cada botón, y escoge uno random para poner la respuesta correcta
+ */
 function renderizeAnswers() {
     /*totalAnswers = block[blockCounter].questions[counter]*/
     correctAnswerIndex = parseInt(Math.ceil(Math.random()*totalAnswers));
@@ -302,6 +325,9 @@ function renderizeAnswers() {
     isCorrectRenderized = false
 }
 
+/**
+ * Esto es para asegurarse de que el usuario vea la advertencia antes de ver el video
+ */
 function verVideo() {
     verVideoClick++;
     if (verVideoClick % 2 === 0) {
@@ -313,4 +339,13 @@ function renderizeResults() {
     closeModal(questionsModal)
     loadModal(resultsModal)
 
+}
+
+/**
+ * Inicializa las variables
+ */
+function initializeVariables() {
+    localStorage.setItem('score', 0)
+    localStorage.setItem("questionCounter",0)
+    localStorage.setItem("blockCounter",0)
 }
