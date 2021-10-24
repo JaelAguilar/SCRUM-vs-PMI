@@ -16,7 +16,7 @@
 </head>
 <body>
     <div id="video-container">
-        <video src="" alt="Video">Video</video>
+        <iframe width="500" height="280" src="https://www.youtube.com/embed/C0DPdy98e4c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="videoFrame"></iframe>
     </div>
 
 
@@ -24,7 +24,7 @@
 
     <!-- Este botón abre el modal donde van a aparecer las preguntas -->
     <div class="button-questions-container">
-        <button type="button" class="btn btn-primary button-questions" data-bs-toggle="modal" data-bs-target="#questionsModal" onclick="loadQuestionModal()">
+        <button type="button" class="btn btn-primary button-questions" data-bs-toggle="modal" data-bs-target="#questionsModal" onclick="startQuestions()">
         Preguntas
         </button>
     </div>
@@ -73,57 +73,14 @@
                 </div>
                 <div class="modal-footer">
                     
-                    <button class="btn btn-primary" id="Finish-Question" onclick="FinishButtonClicked()">Terminar</button>
+                    <button class="btn btn-primary" id="Finish-Question" onclick="finishButtonClicked()">Terminar</button>
                 </div>
             </div>
         </div>
     </div>
     
+        
 
-    
-   
-<!--
-    <div class="card text-center preguntas">
-        <div class="card-header">
-        Pregunta 1 de 1
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Pregunta</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <div class="answers">
-                <div class="d-grid gap-2 d-md-block">
-                    <button class="btn btn-outline-primary" type="button">Respuesta 1</button>  
-                    <button class="btn btn-outline-primary" type="button">Respuesta 2</button>  
-                    <button class="btn btn-outline-primary" type="button">Respuesta 3</button>  
-                    <button class="btn btn-outline-primary" type="button">Respuesta 4</button> 
-                </div>
-                <a href="#" class="btn btn-primary">Continuar</a>
-            </div>
-            
-            
-        </div>
-        
-    </div>
-    <div class="card text-center preguntas">
-        <div class="card-header">
-        Resultados
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Tuviste X respuestas correctas</h5>
-            <p class="card-text">Calificación: X%</p>
-            <div class="answers">
-                <div class="d-grid gap-2 d-md-block">
-                    <button class="btn btn-outline-primary" type="button">Respuesta 1</button>  
-                    <button class="btn btn-outline-primary" type="button">Respuesta 2</button>  
-                    <button class="btn btn-outline-primary" type="button">Respuesta 3</button>  
-                    <button class="btn btn-outline-primary" type="button">Respuesta 4</button> 
-                </div>
-            </div>
-            
-            <a href="#" class="btn btn-primary">Continuar</a>
-        </div>
-        
-    </div>-->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     
