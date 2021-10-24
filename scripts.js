@@ -120,6 +120,10 @@ let videos
  * Contador de videos mostrados
  *  @type {int} */
 let videoCounter
+/**
+ * Videos en total que se van a ver
+ */
+let totalVideos
 
 /**
  * Recuerda las variables guardadas en localStorage, es conveniente poner esta función dentro de la mayoría de las funciones, si no es que todas para evitar problemas de actualización de valores
@@ -144,7 +148,8 @@ function rememberVariables() {
     console.debug(block)
     totalBlocks = Object.keys(block).length;
     firstContinueClicked = localStorage.getItem("firstContinueClicked")
-    videoCounter=localStorage.getItem("videoCounter")
+    videoCounter = localStorage.getItem("videoCounter")
+    videos= JSON.parse(localStorage.getItem('videos'))
 }
 
 
@@ -154,7 +159,7 @@ $.getJSON("data.json", function (data) {
     block = data.blocks;
     localStorage.setItem('videos', JSON.stringify(data.videos))
     videos = data.videos;
-  console.log(data.blocks[0]) //json output
+  console.log(videos[0].url) //json output
 })
 
 
@@ -277,12 +282,14 @@ function continueButtonClicked() {
         console.log("counter is bigger than totalQuestions")
         if (blockCounter >= totalBlocks-1) {
             renderizeResults()
+            
 
         }
         else {
             closeModal(questionsModal,"Questions");
             blockCounter++
-            counter=0
+            counter = 0
+            showNextVideo();
         }
         
         //TODO: #2 Make function to renderize results
@@ -307,22 +314,23 @@ function continueButtonClicked() {
 function renderizeQuestion() {
     rememberVariables();
     
-    console.log("counter=", counter)
+    //console.log("counter=", counter)
 
     
-    console.log("blockcounter=", blockCounter)
-    console.log(block[blockCounter].questions[counter])
+   // console.log("blockcounter=", blockCounter)
+
+    //console.log(block[blockCounter].questions[counter])
     questionBlock.textContent = block[blockCounter].questions[counter].question
-    console.log(questionsCounterHTML)
+    //console.log(questionsCounterHTML)
     questionsCounterHTML.textContent="".concat("Pregunta ",counter+1," de ",totalQuestions)
     console.log("pregunta ", counter + 1, " de ", totalQuestions)
     
 
-    console.log(
+    /*console.log(
       "pregunta=",
       block[blockCounter].questions[counter].question
     )
-    console.log("HTML pregunta=", questionBlock)
+    console.log("HTML pregunta=", questionBlock)*/
     renderizeAnswers();
 }
 
@@ -406,7 +414,7 @@ function initializeVariables() {
     localStorage.setItem('score', 0)
     localStorage.setItem("questionCounter",0)
     localStorage.setItem("blockCounter", 0)
-    localStorage.setItem('videoCounter',0)
+    localStorage.setItem("videoCounter",0)
 }
 
 /**
@@ -415,4 +423,13 @@ function initializeVariables() {
  */
 function finishButtonClicked() {
     closeModal(resultsModal, "Results")
+}
+
+function showNextVideo() {
+    videoCounter++
+    console.debug("Video counter: ",videoCounter)
+    console.debug("Next video url",videos)
+    videoContainer.src = videos[videoCounter].url;
+    localStorage.setItem('videoCounter', videoCounter)
+    console.debug("Next video is showed")
 }
