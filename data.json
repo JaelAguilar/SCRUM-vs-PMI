@@ -1,0 +1,42 @@
+{
+  "blocks": [
+    {
+      "id":"block1",
+      "questions":[
+          {
+            "id": "P1",
+            "question": "¿Qué es SCRUM?",
+            "correctAnswer": "Correcta",
+            "incorrectAnswers": ["R2", "R3", "R4"]
+          },
+          {
+            "id": "P2",
+            "question": "¿Qué es PMI?",
+            "incorrectAnswers": ["R1", "R2", "R4"],
+            "correctAnswer": "Correcta"
+          }
+        ]
+    },
+    {
+      "id":"block2",
+      "questions":[
+        {
+          "id":"P3",
+          "question": "Pregunta 3?",
+          "correctAnswer":"Correcta",
+          "incorrectAnswers":["R2","R3","R4"]
+        }
+      ]
+    }
+  ],
+  "videos":[
+    {
+      "id":"video1",
+      "url":"https://www.youtube.com/watch?v=9xwazD5SyVg"
+    },
+    {
+      "id":"video2",
+      "url":"https://www.youtube.com/watch?v=bBhKto9diVg"
+    }
+  ]
+}
