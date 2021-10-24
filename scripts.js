@@ -25,6 +25,7 @@ let questionsModal = new bootstrap.Modal(
         backdrop: 'static',
         keyboard: false,
         focus: true,
+
   }
 )
 /**
@@ -33,7 +34,8 @@ let questionsModal = new bootstrap.Modal(
 let resultsModal = new bootstrap.Modal(document.getElementById("resultsModal"), {
     backdrop:'static',
     keyboard: false,
-    focus:true,
+    focus: true,
+
 })
 
 
@@ -137,20 +139,20 @@ $.getJSON("questions.json", function (questionsJSON) {
  *Abre el Modal y especifica que el modal está abierto
  *
  */
-function loadModal(modal) {
+function loadModal(modal,type) {
     modal.show();
-    console.log('Modal Open')
-    localStorage.setItem('isModalOpen', true);
+    console.log('Modal Open: ',type)
+    localStorage.setItem('isModalOpen'+type, true);
 }
 
 /**
  *Cierra el Modal y especifica que el modal está cerrado
  *
  */
-function closeModal(modal) {
+function closeModal(modal,type) {
     modal.hide();
-    localStorage.setItem('isModalOpen', false);
-    console.log("Modal Closed")
+    localStorage.setItem('isModalOpen'+type, false);
+    console.log("Modal Closed:",type)
 }
 
 
@@ -159,7 +161,7 @@ function closeModal(modal) {
  * Abre específicamente el modal de preguntas
  */
 function loadQuestionModal() {
-    loadModal(questionsModal);
+    loadModal(questionsModal,"Questions");
     renderizeQuestion();
 
 }
@@ -167,10 +169,15 @@ function loadQuestionModal() {
 // Este código es para asegurarse que el modal se quede abierto aunque se recargue la página
 let reload = sessionStorage.getItem('pageReloaded');
 if (reload) {
-    if (localStorage.getItem('isModalOpen')==='true') {
+    if (localStorage.getItem('isModalOpenQuestions')==='true') {
         loadQuestionModal();
-        rememberVariables();
     }
+    if (localStorage.getItem('isModalOpenResults')) {
+        loadModal(resultsModal, "results")
+    }
+    rememberVariables()
+    
+
 }
 sessionStorage.setItem('pageReloaded', 'true');
 
@@ -229,7 +236,7 @@ function continueButtonClicked() {
 
         }
         else {
-            closeModal(questionsModal);
+            closeModal(questionsModal,"Questions");
             blockCounter++
             counter=0
         }
@@ -331,13 +338,13 @@ function renderizeAnswers() {
 function verVideo() {
     verVideoClick++;
     if (verVideoClick % 2 === 0) {
-        closeModal(questionsModal)
+        closeModal(questionsModal,"Questions")
     }
 }
 
 function renderizeResults() {
-    closeModal(questionsModal)
-    loadModal(resultsModal)
+    closeModal(questionsModal,"Questions")
+    loadModal(resultsModal,"Results")
 
 }
 
