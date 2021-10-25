@@ -122,7 +122,7 @@ let videoCounter = 0;
 $.getJSON("data.json", function (data) {
     block = data.blocks;
     videos = data.videos;
-    console.log(data.blocks[0])
+    //console.log(data.blocks[0])
     showNextVideo() 
 })
 
@@ -134,7 +134,7 @@ $.getJSON("data.json", function (data) {
  * Abre el modal de preguntas cuando se pica al botón de Preguntas, o el de respuestas cuando ya se acabaron los bloques
  */
 function startQuestions() {
-    console.log("blockCounter 1: ",blockCounter)
+    //console.log("blockCounter 1: ",blockCounter)
     if (verVideoClick >= 2) {
         verVideoClick = 0
         videoDeNuevoButton.disabled=true
@@ -144,15 +144,15 @@ function startQuestions() {
         videoDeNuevoButton.disabled=false
     }
     if (blockCounter >= block.length) {
-        console.debug("Results should be showed")
+        //console.debug("Results should be showed")
       renderizeResults()
     }
     else {
-        console.log("Video Counter: ", videoCounter)
+        //console.log("Video Counter: ", videoCounter)
         questionsModal.show()
         renderizeQuestion()
     }
-    console.log("blockCounter 2: ", blockCounter)
+    //console.log("blockCounter 2: ", blockCounter)
     
 }
 
@@ -165,10 +165,10 @@ function startQuestions() {
  */
 function answerChoosed(number) {
 
-    console.log(number)
+    //console.log(number)
     answerButtons.forEach(button => {
         if ("respuesta" + number === button.id) {
-            console.log(button.id)
+            //console.log(button.id)
             buttonChoosed=button.textContent
         }   
     })
@@ -184,21 +184,21 @@ function continueButtonClicked() {
     
 
     continueButton.disabled = true
-    console.log(score);
-    console.log(counter);
-    console.log(totalQuestions);
+    //console.log(score);
+    //console.log(counter);
+    //console.log(totalQuestions);
 
-    console.log("botón escogido= ",buttonChoosed)
+    //console.log("botón escogido= ",buttonChoosed)
     if (
       buttonChoosed === block[blockCounter].questions[counter].correctAnswer
     ) {
         score++
-        console.debug("Se escogió la correcta, calificación:", score);
+        //console.debug("Se escogió la correcta, calificación:", score);
     }
-    console.log("bloque ", blockCounter)
-    console.log("pregunta ",counter+1," de ",totalQuestions)
+    //console.log("bloque ", blockCounter)
+    //console.log("pregunta ",counter+1," de ",totalQuestions)
     if (counter >= totalQuestions - 1) {
-        console.log("counter is bigger than totalQuestions")
+        //console.log("counter is bigger than totalQuestions")
         if (blockCounter >= block.length - 1) {
           renderizeResults()
         } else {
@@ -222,22 +222,22 @@ function continueButtonClicked() {
 function renderizeQuestion() {
 
     totalQuestions = Object.keys(block[blockCounter].questions).length
-    console.log("totalQuestions ",totalQuestions)
-    console.log("counter=", counter)
+    //console.log("totalQuestions ",totalQuestions)
+    //console.log("counter=", counter)
 
     
-    console.log("blockcounter=", blockCounter)
+    //console.log("blockcounter=", blockCounter)
 
     questionBlock.textContent = block[blockCounter].questions[counter].question
 
     questionsCounterHTML.textContent="".concat("Pregunta ",counter+1," de ",totalQuestions)
-    console.log("pregunta ", counter + 1, " de ", totalQuestions)
+    //console.log("pregunta ", counter + 1, " de ", totalQuestions)
     
 
-    console.log(
+    /*console.log(
       "pregunta=",
       block[blockCounter].questions[counter].question
-    )
+    )*/
 
     renderizeAnswers();
 }
@@ -329,8 +329,8 @@ function finishButtonClicked() {
 }
 
 function showNextVideo() {
-    console.debug("videoCounter: ",videoCounter)
-    console.debug("Video showed link is ",videos[videoCounter].url)
+    //console.debug("videoCounter: ",videoCounter)
+    //console.debug("Video showed link is ",videos[videoCounter].url)
     videoContainer.src=videos[videoCounter].url
 }
 
