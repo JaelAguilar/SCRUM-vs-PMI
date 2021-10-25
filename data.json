@@ -3,28 +3,85 @@
     {
       "id":"block1",
       "questions":[
-          {
-            "id": "P1",
-            "question": "¿Qué es SCRUM?",
-            "correctAnswer": "Correcta",
-            "incorrectAnswers": ["R2", "R3", "R4"]
-          },
-          {
-            "id": "P2",
-            "question": "¿Qué es PMI?",
-            "incorrectAnswers": ["R1", "R2", "R4"],
-            "correctAnswer": "Correcta"
-          }
-        ]
+        {
+          "id": "P1",
+          "question": "¿Qué es PMBOK6?",
+          "incorrectAnswers":[
+            "Metodología para vender productos", 
+            "Manera desorganizada de cómo hacer un trabajo", 
+            "Ideología de cómo reparar las cosas conforme con la organización"
+          ],
+          "correctAnswer": "Guía de los fundamentos para la dirección de proyectos"
+        },
+        {
+          "id": "P2",
+          "question": "¿Cómo se divide PMBOK?",
+          "incorrectAnswers": [
+            "Incio,  Ejecución, Control y monitorización y Cierre",
+            "Revisión, Análisis y Ejecución.",
+            "Análisis, Contratación, Monitorización y Cierre"
+          ],
+          "correctAnswer": "Incio, Planificación, Ejecución, Control y monitorización y Cierre"
+        }
+      ]
     },
     {
       "id":"block2",
       "questions":[
         {
           "id":"P3",
-          "question": "Pregunta 3?",
-          "correctAnswer":"Correcta",
-          "incorrectAnswers":["R2","R3","R4"]
+          "question": "¿Qué es SCRUM?",
+          "correctAnswer":"Marco de trabajo para desarrollo ágil de software que se ha expandido a otras industrias",
+          "incorrectAnswers":[
+            "Guía de los fundamentos para la dirección de proyectos",
+            "Software de administración de proyectos con interfaz web y con cliente para iOS y android para organizar proyectos.​",
+            "Determina los requisitos para un Sistema de Gestión de la Calidad, que pueden utilizarse para su aplicación interna por las organizaciones"
+          ]
+        },
+        {
+          "id": "P4",
+          "question": "Los pilares o características de la metodología Scrum más importantes son...",
+          "correctAnswer": "Transparencia, Inspección y Adaptación",
+          "incorrectAnswers": [
+            "Adaptación, Inspección y Desarrollo",
+            "Modulación, Revisión y Aceptación",
+            "Confirmación, Transparencia y Conclusión"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "block3",
+      "questions": [
+        {
+          "id": "P4",
+          "question": "Es el que tiene contacto con el cliente y analiza los requerimiento para que el equipo los cumpla.",
+          "correctAnswer": "Product Owner",
+          "incorrectAnswers": [
+            "SCRUM Master",
+            "Product Master",
+            "SCRUM Owner"
+          ]
+        },
+        {
+          "id": "P5",
+          "question": "Es el encargado de eliminar impedimentos o inconvenientes que tenga el equipo dentro de un sprint.",
+          "correctAnswer": "SCRUM Master",
+          "incorrectAnswers": [
+            "Scrum Owner",
+            "Product Master",
+            "Product Owner"
+          ]
+        },
+        {
+          "id": "P6",
+          "question": "Son los encargados de realizar las tareas priorizadas por el Product Owner. Es un equipo multifuncional y auto-organizado. Son los únicos que estiman las tareas del product backlog, sin dejarse influenciar por nadie.",
+          "correctAnswer": "Equipo de Desarrrollo",
+          "incorrectAnswers": [
+            "Arquitectos de Software", 
+            "Ingenieros de Software", 
+            "Encargados del software"
+          ]
         }
       ]
     }
@@ -32,11 +89,15 @@
   "videos":[
     {
       "id":"video1",
-      "url":"./media/demoVideo1.mp4"
+      "url":"./media/Cap1.mp4"
     },
     {
       "id":"video2",
-      "url":"./media/demoVideo2.mp4"
+      "url":"./media/Cap2.mp4"
+    },
+    {
+      "id": "video3",
+      "url": "./media/Cap3.mp4"
     }
   ]
 }
