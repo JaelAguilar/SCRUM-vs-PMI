@@ -133,6 +133,7 @@ $.getJSON("data.json", function (data) {
  */
 function startQuestions() {
     videoCounter++
+    console.log("Video Counter: ",videoCounter);
     questionsModal.show()
     renderizeQuestion()
 }
@@ -185,7 +186,8 @@ function continueButtonClicked() {
         } else {
           questionsModal.hide()
           blockCounter++
-          counter = 0
+            counter = 0
+            showNextVideo()
         }
         
     }
@@ -193,9 +195,6 @@ function continueButtonClicked() {
         counter++
         renderizeQuestion()
     }
-    
-    
-    
 }
 
 
@@ -210,9 +209,9 @@ function renderizeQuestion() {
 
     
     console.log("blockcounter=", blockCounter)
-    console.log(block[blockCounter].questions[counter])
+
     questionBlock.textContent = block[blockCounter].questions[counter].question
-    console.log(questionsCounterHTML)
+
     questionsCounterHTML.textContent="".concat("Pregunta ",counter+1," de ",totalQuestions)
     console.log("pregunta ", counter + 1, " de ", totalQuestions)
     
@@ -221,7 +220,7 @@ function renderizeQuestion() {
       "pregunta=",
       block[blockCounter].questions[counter].question
     )
-    console.log("HTML pregunta=", questionBlock)
+
     renderizeAnswers();
 }
 
@@ -305,4 +304,9 @@ function renderizeResults() {
  */
 function finishButtonClicked() {
     resultsModal.hide()
+}
+
+function showNextVideo() {
+    console.debug("Video showed link is ",videos[videoCounter].url)
+    videoContainer.src=videos[videoCounter].url
 }
