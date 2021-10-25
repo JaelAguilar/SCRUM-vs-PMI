@@ -59,6 +59,7 @@ let resultsTitle = document.getElementById("Title-Results")
  *  @type {HTMLElement} */
 let videoContainer = document.getElementById("videoFrame")
 
+let videoDeNuevoButton = document.getElementById("video-de-nuevo")
 //Definir las variables que se van a estar usando
 /**
  * Preguntas en JSON
@@ -122,7 +123,7 @@ $.getJSON("data.json", function (data) {
     block = data.blocks;
     videos = data.videos;
     console.log(data.blocks[0])
-    showNextVideo() //json output
+    showNextVideo() 
 })
 
 
@@ -130,13 +131,29 @@ $.getJSON("data.json", function (data) {
 
 
 /**
- * Abre específicamente el modal de preguntas cuando se pica al botón de Preguntas
+ * Abre el modal de preguntas cuando se pica al botón de Preguntas, o el de respuestas cuando ya se acabaron los bloques
  */
 function startQuestions() {
-    videoCounter++
-    console.log("Video Counter: ",videoCounter);
-    questionsModal.show()
-    renderizeQuestion()
+    console.log("blockCounter 1: ",blockCounter)
+    if (verVideoClick >= 2) {
+        verVideoClick = 0
+        videoDeNuevoButton.disabled=true
+    }
+    else {
+        videoCounter++
+        videoDeNuevoButton.disabled=false
+    }
+    if (blockCounter >= block.length) {
+        console.debug("Results should be showed")
+      renderizeResults()
+    }
+    else {
+        console.log("Video Counter: ", videoCounter)
+        questionsModal.show()
+        renderizeQuestion()
+    }
+    console.log("blockCounter 2: ", blockCounter)
+    
 }
 
 
@@ -281,9 +298,11 @@ function renderizeAnswers() {
  * Esto es para asegurarse de que el usuario vea la advertencia antes de ver el video
  */
 function verVideo() {
+    
     verVideoClick++;
-    if (verVideoClick % 2 === 0) {
-        closeModal(questionsModal,"Questions")
+    if (verVideoClick >=2) {
+        questionsModal.hide()
+        
     }
 }
 
@@ -293,6 +312,7 @@ function verVideo() {
  *
  */
 function renderizeResults() {
+    blockCounter=block.length //This fixes a bug in startQuestions
     questionsModal.hide()
     resultsModal.show()
     resultsTitle.textContent="¡Tuviste "+score+" respuestas correctas!"
@@ -305,6 +325,7 @@ function renderizeResults() {
  */
 function finishButtonClicked() {
     resultsModal.hide()
+    questionsModal.hide()
 }
 
 function showNextVideo() {
