@@ -59,6 +59,7 @@ let resultsTitle = document.getElementById("Title-Results")
  *  @type {HTMLElement} */
 let videoContainer = document.getElementById("videoFrame")
 
+let videoDeNuevoButton = document.getElementById("video-de-nuevo")
 //Definir las variables que se van a estar usando
 /**
  * Preguntas en JSON
@@ -67,7 +68,7 @@ let questions
 /**
  * Contador de preguntas contestadas dentro del bloque
  */
-let counter
+let counter=0
 /**
  * Veces que se ha picado al botó "ver video"
  */
@@ -75,7 +76,7 @@ let verVideoClick = 0;
 /**
  * Contador de bloques contestados
  */
-let blockCounter;
+let blockCounter=0;
 /**
  * Bloques de preguntas en formato JSON
  */
@@ -87,7 +88,7 @@ let buttonChoosed
 /**
  * Puntaje actual
  */
-let score;
+let score = 0;
 /**
  * Índice de la respuesta correcta
  */
@@ -104,14 +105,7 @@ let isCorrectRenderized = false;
  * Cantidad de preguntas de un bloque específico
  */
 let totalQuestions
-/**
- * Cantidad de bloques totales
- */
-let totalBlocks
-/**
- * Dummy variable para checar si es la primera vez que se ha picado a continuar
- */
-let firstContinueClicked
+
 /**
  * JSON de los links a los videos 
  * @type {JSONObject} */
@@ -119,115 +113,50 @@ let videos
 /**
  * Contador de videos mostrados
  *  @type {int} */
-let videoCounter
+let videoCounter = 0;
 
-/**
- * Recuerda las variables guardadas en localStorage, es conveniente poner esta función dentro de la mayoría de las funciones, si no es que todas para evitar problemas de actualización de valores
- */
-function rememberVariables() {
-    block = JSON.parse(localStorage.getItem('blocks'));
-    buttonChoosed = localStorage.getItem("choosed");
-    score = localStorage.getItem("score");
 
-    counter = parseInt(localStorage.getItem("questionCounter"));
-
-    blockCounter = parseInt(localStorage.getItem("blockCounter"));
-
-    totalQuestions = Object.keys(
-        block[blockCounter].questions
-    ).length;
-        console.debug(
-          "TOTAL ANSWERS DEBUG:",
-          block[blockCounter].questions[counter]
-        )
-    totalAnswers = Object.keys(block[blockCounter].questions[counter].incorrectAnswers).length + 1;
-    console.debug(block)
-    totalBlocks = Object.keys(block).length;
-    firstContinueClicked = localStorage.getItem("firstContinueClicked")
-    videoCounter=localStorage.getItem("videoCounter")
-}
 
 
 //Obtener las preguntas y los links a youtube del documento JSON
 $.getJSON("data.json", function (data) {
-    localStorage.setItem('blocks', JSON.stringify(data.blocks))
     block = data.blocks;
-    localStorage.setItem('videos', JSON.stringify(data.videos))
     videos = data.videos;
-  console.log(data.blocks[0]) //json output
+    console.log(data.blocks[0])
+    showNextVideo() 
 })
 
 
-/**
- *
- *
- */
-/**
- *
- *Abre el Modal y especifica que el modal está abierto
- * @param {Modal} modal
- * @param {String} type
- */
-function loadModal(modal,type) {
-    modal.show();
-    console.log('Modal Open: ',type)
-    localStorage.setItem('isModalOpen'+type, true);
-}
-
-/**
- *
- *Cierra el Modal y especifica que el modal está cerrado
- *
- 
- *
- * @param {bootstrap.Modal} modal
- * @param {string} type
- */
-function closeModal(modal,type) {
-    modal.hide();
-    localStorage.setItem('isModalOpen'+type, false);
-    console.log("Modal Closed:",type)
-}
 
 
 
 /**
- * Abre específicamente el modal de preguntas
+ * Abre el modal de preguntas cuando se pica al botón de Preguntas, o el de respuestas cuando ya se acabaron los bloques
  */
 function startQuestions() {
-  //Esto es para ver si es la primera vez que se ha picado al botón de continuar, y si es así, se inicializan las variables
-  console.log("firstContinueClicked: ", firstContinueClicked)
-  if (firstContinueClicked == null) {
-    initializeVariables()
-    localStorage.setItem("firstContinueClicked", true)
+    console.log("blockCounter 1: ",blockCounter)
+    if (verVideoClick >= 2) {
+        verVideoClick = 0
+        videoDeNuevoButton.disabled=true
     }
-    localStorage.setItem('videoCounter',videoCounter++)
-
-  console.log("firstContinueClicked: ", firstContinueClicked)
-  loadModal(questionsModal, "Questions")
-  renderizeQuestion()
-}
-
-// Este código es para asegurarse que el modal se quede abierto aunque se recargue la página
-let reload = sessionStorage.getItem('pageReloaded');
-if (reload) {
-    console.log("Open Modal Questions", localStorage.getItem("isModalOpenQuestions"))
-    console.log(
-      "Open Modal Results",
-      localStorage.getItem("isModalOpenResults")
-    )
-    if (localStorage.getItem("isModalOpenResults") === "true") {
+    else {
+        videoCounter++
+        videoDeNuevoButton.disabled=false
+    }
+    if (blockCounter >= block.length) {
+        console.debug("Results should be showed")
       renderizeResults()
     }
-    else if (localStorage.getItem('isModalOpenQuestions')==='true') {
-        startQuestions()
+    else {
+        console.log("Video Counter: ", videoCounter)
+        questionsModal.show()
+        renderizeQuestion()
     }
+    console.log("blockCounter 2: ", blockCounter)
     
-    rememberVariables()
-    
-
 }
-sessionStorage.setItem('pageReloaded', 'true');
+
+
 
 
 /**
@@ -240,7 +169,7 @@ function answerChoosed(number) {
     answerButtons.forEach(button => {
         if ("respuesta" + number === button.id) {
             console.log(button.id)
-            localStorage.setItem("choosed", button.textContent)
+            buttonChoosed=button.textContent
         }   
     })
     continueButton.disabled = false
@@ -253,51 +182,37 @@ function answerChoosed(number) {
  */
 function continueButtonClicked() {
     
-    rememberVariables();
+
     continueButton.disabled = true
     console.log(score);
     console.log(counter);
     console.log(totalQuestions);
 
-    localStorage.setItem(
-      "questionCounter",
-      parseInt(counter) + 1
-    )
     console.log("botón escogido= ",buttonChoosed)
     if (
       buttonChoosed === block[blockCounter].questions[counter].correctAnswer
     ) {
         score++
-        localStorage.setItem("score", score)
         console.debug("Se escogió la correcta, calificación:", score);
     }
     console.log("bloque ", blockCounter)
     console.log("pregunta ",counter+1," de ",totalQuestions)
     if (counter >= totalQuestions - 1) {
         console.log("counter is bigger than totalQuestions")
-        if (blockCounter >= totalBlocks-1) {
-            renderizeResults()
-
-        }
-        else {
-            closeModal(questionsModal,"Questions");
-            blockCounter++
-            counter=0
+        if (blockCounter >= block.length - 1) {
+          renderizeResults()
+        } else {
+          questionsModal.hide()
+          blockCounter++
+            counter = 0
+            showNextVideo()
         }
         
-        //TODO: #2 Make function to renderize results
     }
     else {
         counter++
         renderizeQuestion()
     }
-    
-     
-    
-    localStorage.setItem("questionCounter",counter)
-    
-    localStorage.setItem("blockCounter", blockCounter);
-    
 }
 
 
@@ -305,15 +220,16 @@ function continueButtonClicked() {
  * Muestra la pregunta y las respuestas
  */
 function renderizeQuestion() {
-    rememberVariables();
-    
+
+    totalQuestions = Object.keys(block[blockCounter].questions).length
+    console.log("totalQuestions ",totalQuestions)
     console.log("counter=", counter)
 
     
     console.log("blockcounter=", blockCounter)
-    console.log(block[blockCounter].questions[counter])
+
     questionBlock.textContent = block[blockCounter].questions[counter].question
-    console.log(questionsCounterHTML)
+
     questionsCounterHTML.textContent="".concat("Pregunta ",counter+1," de ",totalQuestions)
     console.log("pregunta ", counter + 1, " de ", totalQuestions)
     
@@ -322,7 +238,7 @@ function renderizeQuestion() {
       "pregunta=",
       block[blockCounter].questions[counter].question
     )
-    console.log("HTML pregunta=", questionBlock)
+
     renderizeAnswers();
 }
 
@@ -330,7 +246,9 @@ function renderizeQuestion() {
  * Pone el texto de las respuestas en cada botón, y escoge uno random para poner la respuesta correcta
  */
 function renderizeAnswers() {
-    /*totalAnswers = block[blockCounter].questions[counter]*/
+
+    totalAnswers = Object.keys(block[blockCounter].questions[counter].incorrectAnswers).length+1
+    
     correctAnswerIndex = parseInt(Math.ceil(Math.random()*totalAnswers));
     isCorrectRenderized = false;
     answerButtons.forEach((button) => {
@@ -380,9 +298,11 @@ function renderizeAnswers() {
  * Esto es para asegurarse de que el usuario vea la advertencia antes de ver el video
  */
 function verVideo() {
+    
     verVideoClick++;
-    if (verVideoClick % 2 === 0) {
-        closeModal(questionsModal,"Questions")
+    if (verVideoClick >=2) {
+        questionsModal.hide()
+        
     }
 }
 
@@ -392,21 +312,11 @@ function verVideo() {
  *
  */
 function renderizeResults() {
-    //();
-    closeModal(questionsModal,"Questions")
-    loadModal(resultsModal, "Results")
+    blockCounter=block.length //This fixes a bug in startQuestions
+    questionsModal.hide()
+    resultsModal.show()
     resultsTitle.textContent="¡Tuviste "+score+" respuestas correctas!"
 
-}
-
-/**
- * Inicializa las variables
- */
-function initializeVariables() {
-    localStorage.setItem('score', 0)
-    localStorage.setItem("questionCounter",0)
-    localStorage.setItem("blockCounter", 0)
-    localStorage.setItem('videoCounter',0)
 }
 
 /**
@@ -414,5 +324,13 @@ function initializeVariables() {
  *
  */
 function finishButtonClicked() {
-    closeModal(resultsModal, "Results")
+    resultsModal.hide()
+    questionsModal.hide()
 }
+
+function showNextVideo() {
+    console.debug("videoCounter: ",videoCounter)
+    console.debug("Video showed link is ",videos[videoCounter].url)
+    videoContainer.src=videos[videoCounter].url
+}
+

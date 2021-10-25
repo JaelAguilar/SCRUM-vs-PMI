@@ -16,7 +16,7 @@
 </head>
 <body>
     <div id="video-container">
-        <iframe width="500" height="280" src="https://www.youtube.com/embed/C0DPdy98e4c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="videoFrame"></iframe>
+        <iframe width="500" height="280"   frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="videoFrame"></iframe>
     </div>
 
 
@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="popover" data-bs-trigger="focus"  data-bs-content="Sólo podrás ver el video una vez más, ¿estás seguro?" onclick="verVideo()">Ver video de nuevo</button>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="popover" data-bs-trigger="focus"  data-bs-content="Sólo podrás ver el video una vez más, ¿estás seguro?" onclick="verVideo()" id="video-de-nuevo">Ver video de nuevo</button>
                     <button class="btn btn-primary" id="Continue-Question" onclick="continueButtonClicked()" disabled>Continuar</button>
                 </div>
             </div>
