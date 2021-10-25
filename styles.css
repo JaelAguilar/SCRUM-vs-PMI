@@ -33,3 +33,8 @@ body{
     background-attachment: fixed;
     background-size:cover;
 }
+
+p, b{
+    text-align: justify;
+  text-justify: inter-word;
+}
