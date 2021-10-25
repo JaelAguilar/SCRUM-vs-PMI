@@ -230,7 +230,7 @@ function renderizeQuestion() {
 
     questionBlock.textContent = block[blockCounter].questions[counter].question
 
-    questionsCounterHTML.textContent="".concat("Pregunta ",counter+1," de ",totalQuestions)
+    questionsCounterHTML.textContent="".concat("Capítulo ",blockCounter+1,". Pregunta ",counter+1," de ",totalQuestions)
     //console.log("pregunta ", counter + 1, " de ", totalQuestions)
     
 

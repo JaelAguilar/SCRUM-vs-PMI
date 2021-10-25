@@ -5,23 +5,23 @@
       "questions":[
         {
           "id": "P1",
-          "question": "¿Qué es Pembok6?",
-          "incorrectAnswers": 
-          ["Metodologia para vender productos", 
-            "Manera desorganizada de como hacer un trabajo", 
-            "Ideologia de como reparar las cosas confome con la organizacion"
+          "question": "¿Qué es PMBOK6?",
+          "incorrectAnswers":[
+            "Metodología para vender productos", 
+            "Manera desorganizada de cómo hacer un trabajo", 
+            "Ideología de cómo reparar las cosas conforme con la organización"
           ],
           "correctAnswer": "Guía de los fundamentos para la dirección de proyectos"
         },
         {
           "id": "P2",
-          "question": "¿Cómo se divide pmbook?",
+          "question": "¿Cómo se divide PMBOK?",
           "incorrectAnswers": [
-            "Incio,  Ejecución, Control y monitorizacion y Cierre",
+            "Incio,  Ejecución, Control y monitorización y Cierre",
             "Revisión, Análisis y Ejecución.",
             "Análisis, Contratación, Monitorización y Cierre"
           ],
-          "correctAnswer": "Incio, Planificacion, Ejecución, Control y monitorizacion y Cierre"
+          "correctAnswer": "Incio, Planificación, Ejecución, Control y monitorización y Cierre"
         }
       ]
     },
@@ -31,11 +31,11 @@
         {
           "id":"P3",
           "question": "¿Qué es SCRUM?",
-          "correctAnswer":"Marco de trabajo para desarrollo ágil de software que se ha expandido a otras industrias.",
+          "correctAnswer":"Marco de trabajo para desarrollo ágil de software que se ha expandido a otras industrias",
           "incorrectAnswers":[
-            "Guía de los fundamentos para la dirección de proyectos es un libro en el que se presentan estándares, pautas y normas para la gestión de proyectos",
+            "Guía de los fundamentos para la dirección de proyectos",
             "Software de administración de proyectos con interfaz web y con cliente para iOS y android para organizar proyectos.​",
-            "Determina los requisitos para un Sistema de Gestión de la Calidad, que pueden utilizarse para su aplicación interna por las organizaciones, sin importar si el producto"
+            "Determina los requisitos para un Sistema de Gestión de la Calidad, que pueden utilizarse para su aplicación interna por las organizaciones"
           ]
         },
         {
@@ -54,23 +54,33 @@
       "id": "block3",
       "questions": [
         {
-          "id": "P3",
-          "question": "Pregunta",
-          "correctAnswer": "X",
+          "id": "P4",
+          "question": "Es el que tiene contacto con el cliente y analiza los requerimiento para que el equipo los cumpla.",
+          "correctAnswer": "Product Owner",
           "incorrectAnswers": [
-            "X",
-            "X​",
-            "X"
+            "SCRUM Master",
+            "Product Master",
+            "SCRUM Owner"
           ]
         },
         {
-          "id": "P4",
-          "question": "X",
-          "correctAnswer": "X",
+          "id": "P5",
+          "question": "Es el encargado de eliminar impedimentos o inconvenientes que tenga el equipo dentro de un sprint.",
+          "correctAnswer": "SCRUM Master",
           "incorrectAnswers": [
-            "X",
-            "X",
-            "X"
+            "Scrum Owner",
+            "Product Master",
+            "Product Owner"
+          ]
+        },
+        {
+          "id": "P6",
+          "question": "Son los encargados de realizar las tareas priorizadas por el Product Owner. Es un equipo multifuncional y auto-organizado. Son los únicos que estiman las tareas del product backlog, sin dejarse influenciar por nadie.",
+          "correctAnswer": "Equipo de Desarrrollo",
+          "incorrectAnswers": [
+            "Arquitectos de Software", 
+            "Ingenieros de Software", 
+            "Encargados del software"
           ]
         }
       ]
