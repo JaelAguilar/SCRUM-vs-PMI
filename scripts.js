@@ -121,7 +121,8 @@ let videoCounter = 0;
 $.getJSON("data.json", function (data) {
     block = data.blocks;
     videos = data.videos;
-  console.log(data.blocks[0]) //json output
+    console.log(data.blocks[0])
+    showNextVideo() //json output
 })
 
 
@@ -307,6 +308,8 @@ function finishButtonClicked() {
 }
 
 function showNextVideo() {
+    console.debug("videoCounter: ",videoCounter)
     console.debug("Video showed link is ",videos[videoCounter].url)
     videoContainer.src=videos[videoCounter].url
 }
+
