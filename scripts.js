@@ -331,6 +331,16 @@ function finishButtonClicked() {
 function showNextVideo() {
     //console.debug("videoCounter: ",videoCounter)
     //console.debug("Video showed link is ",videos[videoCounter].url)
-    videoContainer.src=videos[videoCounter].url
+    videoContainer.src =
+      "https://github.com/JaelAguilar/SCRUM-vs-PMI/raw/no-local-storage/media/" +
+      videos[videoCounter].url
 }
 
+/**
+ *Reinicia todo
+ (Honestamente sólo le da un reload y ps todo veulve a su estado original)
+ *
+ */
+/*function reset() {
+  location.reload(true)
+}*/
