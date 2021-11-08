@@ -367,19 +367,15 @@ function reset() {
  *
  */
 function renderizeEachResult() {
-  console.log("pregunta: ", block[blockCounter].questions[counter].question)
-  console.log("Respuesta elegida", buttonChoosed)
-  console.log(
-    "Es correcto?",
-    buttonChoosed === block[blockCounter].questions[counter].correctAnswer
-  )
   let pregunta = document.createElement('p');
   pregunta.innerText = block[blockCounter].questions[counter].question
-  pregunta.style.fontWeight = "bold"
+  pregunta.style.fontWeight = "bold";
+  pregunta.classList.add("resultsQuestions")
   finalAnswersBlock.appendChild(pregunta)
   
   let respuesta = document.createElement('p');
-  respuesta.innerText=buttonChoosed
+  respuesta.innerText = buttonChoosed
+  respuesta.classList.add("resultsText")
   let respuestaCorrecta
 
   if (buttonChoosed === block[blockCounter].questions[counter].correctAnswer) {
@@ -389,7 +385,8 @@ function renderizeEachResult() {
      respuestaCorrecta= document.createElement('p');
     respuestaCorrecta.innerText =
       block[blockCounter].questions[counter].correctAnswer;
-      respuestaCorrecta.style.color="green"
+    respuestaCorrecta.style.color = "green"
+    respuestaCorrecta.classList.add("resultsText")
   }
   finalAnswersBlock.appendChild(respuesta);
   if (respuestaCorrecta) {

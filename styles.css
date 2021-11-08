@@ -38,3 +38,11 @@ p, b{
     text-align: justify;
   text-justify: inter-word;
 }
+
+.resultsText, .resultsQuestions{
+    margin-bottom:0% !important;  
+}
+
+.resultsQuestions{
+    margin-top:1rem !important;
+}
