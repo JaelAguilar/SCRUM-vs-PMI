@@ -70,11 +70,13 @@ let videoDeNuevoButton = document.getElementById("video-de-nuevo")
 let finalAnswersBlock = document.getElementById(
   "preguntas-respuestas-correctas"
 )
-//Definir las variables que se van a estar usando
+
 /**
- * Preguntas en JSON
+ * Bloque que dice si fue correcto o incorrecto
  */
-let questions
+let isCorrectTitle = document.getElementById("Correct-Incorrect");
+
+
 /**
  * Contador de preguntas contestadas dentro del bloque
  */
@@ -107,10 +109,7 @@ let correctAnswerIndex
  * Respuestas de la pregunta específica
  */
 let totalAnswers
-/**
- * Dummy variable to renderize answers
- */
-let isCorrectRenderized = false;
+
 /**
  * Cantidad de preguntas de un bloque específico
  */
@@ -125,10 +124,7 @@ let videos
  *  @type {int} */
 let videoCounter = 0;
 
-/** 
- * Lista donde pondré los números de las respuestas correctas
- * @type {Array} */
-let answersArray = [];
+
 
 
 
@@ -201,35 +197,59 @@ function continueButtonClicked() {
     if (
       buttonChoosed === block[blockCounter].questions[counter].correctAnswer
     ) {
-        score++
+      score++
+      isCorrectTitle.innerText = "Correcto";
+      isCorrectTitle.style.color = "green";
+      console.debug("Debería decir correcto")
   }
-  
-
-  answersArray.push(buttonChoosed);
-  console.log(answersArray);
-renderizeEachQuestion()
-    if (counter >= totalQuestions - 1) {
-        //console.log("counter is bigger than totalQuestions")
-        renderizeUrls()
-        if (blockCounter >= block.length - 1) {
-          renderizeResults()
-        } else {
-          
-          questionsModal.hide()
-          blockCounter++
-            counter = 0
-          showNextVideo()
-          
-        }
-        
-    }
     else {
-        
-        counter++
-        renderizeQuestion()
+      isCorrectTitle.innerText = "Incorrecto"
+      isCorrectTitle.style.color = "red"
+  }
+  disableAnswerButtons();
+  setTimeout(continueRenderization, 1000);
+  
+/**
+ * This is to continue the renderization because JavaScript doesn't have sleep, after 1 second you'll get to the next question
+ */
+  function continueRenderization() {
+    enableAnswerButtons()
+    renderizeEachQuestion()
+    isCorrectTitle.innerText = ""
+    if (counter >= totalQuestions - 1) {
+      renderizeUrls()
+      if (blockCounter >= block.length - 1) {
+        renderizeResults()
+      } else {
+        questionsModal.hide()
+        blockCounter++
+        counter = 0
+        showNextVideo()
+      }
+    } else {
+      counter++
+      renderizeQuestion()
     }
+  }
 }
 
+/**
+ * This disables the answer buttons while waiting to next question
+ */
+function disableAnswerButtons() {
+  answerButtons.forEach((button) => {
+    button.disabled = true;
+  })
+}
+
+/**
+ * Enables the answer buttons after next question is renderized
+ */
+function enableAnswerButtons() {
+  answerButtons.forEach((button) => {
+    button.disabled = false
+  })
+}
 
 /**
  * Muestra la pregunta y las respuestas
@@ -261,7 +281,7 @@ function renderizeQuestion() {
  * Pone el texto de las respuestas en cada botón, y escoge uno random para poner la respuesta correcta
  */
 function renderizeAnswers() {
-
+    let isCorrectRenderized = false
     totalAnswers = Object.keys(block[blockCounter].questions[counter].incorrectAnswers).length+1
     
     correctAnswerIndex = parseInt(Math.ceil(Math.random()*totalAnswers));
