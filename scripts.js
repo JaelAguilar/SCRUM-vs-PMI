@@ -131,6 +131,7 @@ let videoCounter = 0;
 let answersArray = [];
 
 
+
 //Obtener las preguntas y los links a youtube del documento JSON
 $.getJSON("data.json", function (data) {
     block = data.blocks;
@@ -207,7 +208,8 @@ function continueButtonClicked() {
     ) {
         score++
         //console.debug("Se escogió la correcta, calificación:", score);
-    }
+  }
+  renderizeEachResult();
 
   answersArray.push(buttonChoosed);
   console.log(answersArray);
@@ -333,8 +335,6 @@ function renderizeResults() {
     questionsModal.hide()
     resultsModal.show()
   resultsTitle.textContent = "¡Tuviste " + score + " respuestas correctas!"
-  finalAnswersBlock
-
 }
 
 /**
@@ -360,4 +360,43 @@ function showNextVideo() {
  */
 function reset() {
   location.reload(true)
+}
+
+/**
+ *Renderiza cada pregunta junto con su respuesta correcta y la incorrecta en el panel de respuestas.
+ *
+ */
+function renderizeEachResult() {
+  console.log("pregunta: ", block[blockCounter].questions[counter].question)
+  console.log("Respuesta elegida", buttonChoosed)
+  console.log(
+    "Es correcto?",
+    buttonChoosed === block[blockCounter].questions[counter].correctAnswer
+  )
+  let pregunta = document.createElement('p');
+  pregunta.innerText = block[blockCounter].questions[counter].question
+  pregunta.style.fontWeight = "bold"
+  finalAnswersBlock.appendChild(pregunta)
+  
+  let respuesta = document.createElement('p');
+  respuesta.innerText=buttonChoosed
+  let respuestaCorrecta
+
+  if (buttonChoosed === block[blockCounter].questions[counter].correctAnswer) {
+    respuesta.style.color = "green";
+  } else {
+    respuesta.style.color = "red"
+     respuestaCorrecta= document.createElement('p');
+    respuestaCorrecta.innerText =
+      block[blockCounter].questions[counter].correctAnswer;
+      respuestaCorrecta.style.color="green"
+  }
+  finalAnswersBlock.appendChild(respuesta);
+  if (respuestaCorrecta) {
+    finalAnswersBlock.appendChild(respuestaCorrecta)
+  }
+  
+  
+
+  
 }
