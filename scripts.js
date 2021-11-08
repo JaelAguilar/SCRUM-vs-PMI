@@ -257,23 +257,10 @@ function enableAnswerButtons() {
 function renderizeQuestion() {
 
     totalQuestions = Object.keys(block[blockCounter].questions).length
-    //console.log("totalQuestions ",totalQuestions)
-    //console.log("counter=", counter)
-
-    
-    //console.log("blockcounter=", blockCounter)
 
     questionBlock.textContent = block[blockCounter].questions[counter].question
 
     questionsCounterHTML.textContent="".concat("Capítulo ",blockCounter+1,". Pregunta ",counter+1," de ",totalQuestions)
-    //console.log("pregunta ", counter + 1, " de ", totalQuestions)
-    
-
-    /*console.log(
-      "pregunta=",
-      block[blockCounter].questions[counter].question
-    )*/
-
     renderizeAnswers();
 }
 
@@ -337,9 +324,7 @@ function finishButtonClicked() {
 }
 
 function showNextVideo() {
-    //console.debug("videoCounter: ",videoCounter)
-    //console.debug("Video showed link is ",videos[videoCounter].url)
-    videoContainer.src =`${videos[videoCounter].url}` //This is a weird bug, and i don't know why it works. If this fails, add a ./media/ and it will be done :p
+    videoContainer.src =`${videos[videoCounter].url}` //This is a weird bug, and i don't know why it works. If this fails, add a ./media/ and it will work like a charm :p
 }
 
 /**
