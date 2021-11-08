@@ -370,7 +370,7 @@ function renderizeEachQuestion() {
  */
 function renderizeUrls() {
   let url = document.createElement("a")
-  url.href = block[blockCounter].questions[counter].url
+  url.href = block[blockCounter].url
   url.target = "_blank"
   url.innerText = "Más información"
   finalAnswersBlock.appendChild(url)
