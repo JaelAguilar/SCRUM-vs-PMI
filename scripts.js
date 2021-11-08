@@ -59,7 +59,17 @@ let resultsTitle = document.getElementById("Title-Results")
  *  @type {HTMLElement} */
 let videoContainer = document.getElementById("videoFrame")
 
+/** 
+ * Botón de ver video de nuevo
+ * @type {HTMLElement} */
 let videoDeNuevoButton = document.getElementById("video-de-nuevo")
+
+/**
+ * Div donde aparecen las preguntas y respuestas correctas e incorrectas
+ *  @type {HTMLElement} */
+let finalAnswersBlock = document.getElementById(
+  "preguntas-respuestas-correctas"
+)
 //Definir las variables que se van a estar usando
 /**
  * Preguntas en JSON
@@ -115,7 +125,10 @@ let videos
  *  @type {int} */
 let videoCounter = 0;
 
-
+/** 
+ * Lista donde pondré los números de las respuestas correctas
+ * @type {Array} */
+let answersArray = [];
 
 
 //Obtener las preguntas y los links a youtube del documento JSON
@@ -195,6 +208,10 @@ function continueButtonClicked() {
         score++
         //console.debug("Se escogió la correcta, calificación:", score);
     }
+
+  answersArray.push(buttonChoosed);
+  console.log(answersArray);
+
     //console.log("bloque ", blockCounter)
     //console.log("pregunta ",counter+1," de ",totalQuestions)
     if (counter >= totalQuestions - 1) {
@@ -315,7 +332,8 @@ function renderizeResults() {
     blockCounter=block.length //This fixes a bug in startQuestions
     questionsModal.hide()
     resultsModal.show()
-    resultsTitle.textContent="¡Tuviste "+score+" respuestas correctas!"
+  resultsTitle.textContent = "¡Tuviste " + score + " respuestas correctas!"
+  finalAnswersBlock
 
 }
 
