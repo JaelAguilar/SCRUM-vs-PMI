@@ -198,37 +198,33 @@ function continueButtonClicked() {
     
 
     continueButton.disabled = true
-    //console.log(score);
-    //console.log(counter);
-    //console.log(totalQuestions);
-
-    //console.log("botón escogido= ",buttonChoosed)
     if (
       buttonChoosed === block[blockCounter].questions[counter].correctAnswer
     ) {
         score++
-        //console.debug("Se escogió la correcta, calificación:", score);
   }
-  renderizeEachResult();
+  
 
   answersArray.push(buttonChoosed);
   console.log(answersArray);
-
-    //console.log("bloque ", blockCounter)
-    //console.log("pregunta ",counter+1," de ",totalQuestions)
+renderizeEachQuestion()
     if (counter >= totalQuestions - 1) {
         //console.log("counter is bigger than totalQuestions")
+        renderizeUrls()
         if (blockCounter >= block.length - 1) {
           renderizeResults()
         } else {
+          
           questionsModal.hide()
           blockCounter++
             counter = 0
-            showNextVideo()
+          showNextVideo()
+          
         }
         
     }
     else {
+        
         counter++
         renderizeQuestion()
     }
@@ -271,44 +267,18 @@ function renderizeAnswers() {
     correctAnswerIndex = parseInt(Math.ceil(Math.random()*totalAnswers));
     isCorrectRenderized = false;
     answerButtons.forEach((button) => {
-        if (parseInt(button.id.slice(-1)) === correctAnswerIndex) {
-          button.textContent =
-            block[blockCounter].questions[counter].correctAnswer
-          isCorrectRenderized = true
-        }
-        else {
-           /* console.log(
-          "Answer Comparison: ",
-          button.id.slice(-1),
-          correctAnswerIndex
-        )*/
+      if (parseInt(button.id.slice(-1)) === correctAnswerIndex) {
+        button.textContent =
+          block[blockCounter].questions[counter].correctAnswer
+        isCorrectRenderized = true
+      }
+      else {
         button.textContent =
           block[blockCounter].questions[counter].incorrectAnswers[
-            parseInt(button.id.slice(-1)) - 1 + (isCorrectRenderized ? (-1)  : 0)
+          parseInt(button.id.slice(-1)) - 1 + (isCorrectRenderized ? (-1) : 0)
           ]
+      }
 
-        /*console.debug(
-          "Incorrect Answers Debug:",
-          isCorrectRenderized ? 1 : 0,
-          parseInt(button.id.slice(-1))
-        )
-
-        //console.debug(
-          "Incorrect Answer index: ",
-          parseInt(button.id.slice(-1)) + (isCorrectRenderized ? (-1) : 0) - 1
-        )
-        console.debug(
-          block[blockCounter].questions[counter].incorrectAnswers[
-            parseInt(button.id.slice(-1)) + (isCorrectRenderized ? (-1) : 0) - 1
-          ]
-        )*/}
-        
-        
-        
-
-      /*console.log(button.id, button.id[-1])
-      button.textContent = questions[counter].answers[button.id.slice(-1) - 1]*/
-      //TODO: #3 Change the question appearing by blocks
     })
     isCorrectRenderized = false
 }
@@ -366,7 +336,7 @@ function reset() {
  *Renderiza cada pregunta junto con su respuesta correcta y la incorrecta en el panel de respuestas.
  *
  */
-function renderizeEachResult() {
+function renderizeEachQuestion() {
   let pregunta = document.createElement('p');
   pregunta.innerText = block[blockCounter].questions[counter].question
   pregunta.style.fontWeight = "bold";
@@ -392,8 +362,16 @@ function renderizeEachResult() {
   if (respuestaCorrecta) {
     finalAnswersBlock.appendChild(respuestaCorrecta)
   }
-  
-  
+}
 
-  
+/**
+ *Renderiza los links de cada capítulo en el modal de resultados
+ *
+ */
+function renderizeUrls() {
+  let url = document.createElement("a")
+  url.href = block[blockCounter].questions[counter].url
+  url.target = "_blank"
+  url.innerText = "Más información"
+  finalAnswersBlock.appendChild(url)
 }

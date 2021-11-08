@@ -23,7 +23,8 @@
           ],
           "correctAnswer": "Incio, Planificación, Ejecución, Control y monitorización y Cierre"
         }
-      ]
+      ],
+      "url":"https://ingenio.edu.pe/blog/que-es-pmbok-como-puede-ayudar-a-tu-formacion/"
     },
     {
       "id":"block2",
@@ -48,7 +49,8 @@
             "Confirmación, Transparencia y Conclusión"
           ]
         }
-      ]
+      ],
+      "url":"https://www.wearemarketing.com/es/blog/metodologia-scrum-que-es-y-como-funciona.html"
     },
     {
       "id": "block3",
@@ -83,7 +85,8 @@
             "Encargados del software"
           ]
         }
-      ]
+      ],
+      "url":"https://proyectosagiles.org/que-es-scrum/"
     }
   ],
   "videos":[
